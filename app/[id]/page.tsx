@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { redirect } from "next/navigation";
-// import PdfViewer from "@/components/PdfViewer";
+import PdfViewer from "@/components/PdfViewer";
 import { User } from "@/types";
 import { toast } from "@/components/ui/use-toast";
 
@@ -84,9 +84,9 @@ const File: React.FC<{ params: { id: string } }> = ({ params }) => {
               <source src={fileContentUrl} type="video/mp4" />
             </video>
           ) : null}
-          {/* {fileType === "application" ? (
+          {fileType === "application" ? (
             <PdfViewer url={fileContentUrl} />
-          ) : null} */}
+          ) : null}
         </div>
       </div>
     </div>
