@@ -278,7 +278,7 @@ export default function Home() {
 
         {userFiles?.length ? (
           <div className="p-10 pb-20">
-            <Table className="overflow-scroll p-10">
+            <Table className="p-10">
               <TableCaption>A list of your uploaded Files</TableCaption>
 
               <TableHeader>
@@ -291,10 +291,10 @@ export default function Home() {
               {userFiles &&
                 userFiles.map((item) => (
                   <TableBody key={item._id}>
-                    <TableCell className="font-semibold text-base overflow-scroll break-words text-[#00adb5]">
+                    <TableCell className="font-semibold text-base break-words text-[#00adb5]">
                       {item.originalFileName}
                     </TableCell>
-                    <TableCell className="overflow-scroll break-words">
+                    <TableCell className="break-words">
                       <HoverCard>
                         <HoverCardTrigger>{item.shortUrl}</HoverCardTrigger>
                         <HoverCardContent arrowPadding={0}>
