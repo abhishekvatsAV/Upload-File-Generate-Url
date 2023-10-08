@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 import Image from "next/image";
 import { User } from "@/types";
 import { useRouter } from "next/navigation";
+import { CloseOutlined } from "@ant-design/icons";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -73,7 +74,12 @@ const Login = () => {
             Login
           </button>
         </div>
-        {error && <div className="loginError">{error}</div>}
+        {error && (
+          <div className="loginError">
+            {error}
+            <CloseOutlined className="loginErrBtn" onClick={closeError} />
+          </div>
+        )}
 
         <div className="logintoReg">
           <p>

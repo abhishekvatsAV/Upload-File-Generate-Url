@@ -39,7 +39,7 @@ export default function Home() {
   const [userToken, setUserToken] = useState<User>();
   const [userFiles, setUserFiles] = useState<UserFile[]>();
   const inputRef = useRef<HTMLInputElement>(null);
-  const [inputExists, setInputExists] = useState<string>("");
+  const [inputFileName, setInputFileName] = useState<string>("");
 
   const { logout } = useLogout();
 
@@ -85,7 +85,7 @@ export default function Home() {
     const inputElement = event.target;
     toast.call({ open: false }, { duration: 5 });
     if (inputElement.files && inputElement.files.length > 0) {
-      setInputExists(inputElement.files?.[0].name);
+      setInputFileName(inputElement.files?.[0].name);
       if (inputElement.files[0].size > 10000000) {
         toast({
           variant: "destructive",
@@ -96,6 +96,7 @@ export default function Home() {
         if (inputRef.current) {
           inputRef.current.value = "";
         }
+        setInputFileName("");
         return;
       } else if (
         inputElement.files[0].type.split("/")[0] !== "image" &&
@@ -111,6 +112,7 @@ export default function Home() {
         if (inputRef.current) {
           inputRef.current.value = "";
         }
+        setInputFileName("");
         return;
       }
       setUploadFile(inputElement.files[0]);
@@ -145,7 +147,7 @@ export default function Home() {
           if (inputRef.current) {
             inputRef.current.value = "";
           }
-          setInputExists("");
+          setInputFileName("");
         })
         .catch((error) => {
           console.error("Error uploading file:", error);
@@ -198,22 +200,8 @@ export default function Home() {
       </div>
       <div className="flex items-center justify-center flex-col gap-10 text-white pt-20">
         <div className="grid w-full max-w-sm items-center gap-1.5">
-          {/* <label
-            className="block mb-2 text-sm font-medium text-white"
-            htmlFor="large_size"
-          >
-            Upload Picture, Video or PDF File
-          </label>
-          <input
-            className="block w-full text-lg  border rounded-lg cursor-pointer text-gray-400 focus:outline-none bg-gray-700 border-gray-600 placeholder-gray-400"
-            id="large_size"
-            type="file"
-            onChange={handleFileChange}
-            ref={inputRef}
-          ></input> */}
-
           <div className="flex items-center justify-center w-full">
-            {!inputExists ? (
+            {inputFileName === "" ? (
               <>
                 <label
                   htmlFor="dropzone-file"
@@ -242,20 +230,21 @@ export default function Home() {
                       SVG, PNG, JPG, GIF, PDF, MP4 OR MKV (MAX. 10mb)
                     </p>
                   </div>
+                  <input
+                    id="dropzone-file"
+                    type="file"
+                    className="hidden"
+                    onChange={handleFileChange}
+                    accept=".jpg, .jpeg, .png, .gif, .bmp, .mp4, .avi, .mov, .pdf, .mkv"
+                  />
                 </label>
-                <input
-                  id="dropzone-file"
-                  type="file"
-                  className="hidden"
-                  onChange={handleFileChange}
-                />
               </>
             ) : (
               <div className="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                 <div className="flex flex-col items-center justify-center pt-5 pb-6 text-black gap-10">
                   <FileDoneOutlined className="text-6xl" />
                   <p className="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                    <span className="font-semibold">{inputExists}</span>
+                    <span className="font-semibold">{inputFileName}</span>
                   </p>
                 </div>
               </div>
@@ -278,7 +267,7 @@ export default function Home() {
 
         {userFiles?.length ? (
           <div className="p-10 pb-20">
-            <Table className="p-10">
+            <Table className=" p-10">
               <TableCaption>A list of your uploaded Files</TableCaption>
 
               <TableHeader>

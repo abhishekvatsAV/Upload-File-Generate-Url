@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { User } from "@/types";
 import { useRouter } from "next/navigation";
+import { CloseOutlined } from "@ant-design/icons";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
@@ -35,7 +36,7 @@ const Signup = () => {
       setMatch(true);
       await signup(email, password);
       let user = localStorage.getItem("user");
-      if (user) { 
+      if (user) {
         router.push("/");
       }
     }
@@ -91,13 +92,13 @@ const Signup = () => {
         {!match && (
           <div className="signupError">
             <p>Password != Confirm Password</p>
-            {/* <CloseOutlined className="signupErrBtn" onClick={closeError1} /> */}
+            <CloseOutlined className="signupErrBtn" onClick={closeError1} />
           </div>
         )}
         {error && (
           <div className="signupError">
             {error}
-            {/* <CloseOutlined className="signupErrBtn" onClick={closeError2} /> */}
+            <CloseOutlined className="signupErrBtn" onClick={closeError2} />
           </div>
         )}
 
