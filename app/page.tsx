@@ -93,6 +93,9 @@ export default function Home() {
           description: "File size is too big must be less than 10mb.",
           duration: 3000,
         });
+        if (inputRef.current) {
+          inputRef.current.value = "";
+        }
         return;
       } else if (
         inputElement.files[0].type.split("/")[0] !== "image" &&
@@ -105,6 +108,9 @@ export default function Home() {
           description: "Only Image, Video or Pdf are allowed.",
           duration: 3000,
         });
+        if (inputRef.current) {
+          inputRef.current.value = "";
+        }
         return;
       }
       setUploadFile(inputElement.files[0]);
